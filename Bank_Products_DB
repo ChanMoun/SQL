@@ -1,0 +1,85 @@
+##SAMPLE Data table for 'bank products'
+
+CREATE TABLE bank_products (
+    product_id INTEGER PRIMARY KEY,
+    product_name TEXT,
+    product_type TEXT,
+    interest_rate DECIMAL(5, 2),
+    monthly_fee DECIMAL(6, 2),
+    minimum_balance DECIMAL(10, 2),
+    description TEXT
+);
+
+INSERT INTO bank_products (product_id, product_name, product_type, interest_rate, monthly_fee, minimum_balance, description)
+VALUES
+(1, 'Basic Checking', 'Checking', 0.00, 5.00, 0.00, 'No minimum balance required.'),
+(2, 'Premium Checking', 'Checking', 0.00, 10.00, 1000.00, 'Offers additional benefits.'),
+(3, 'Business Checking', 'Checking', 0.00, 15.00, 5000.00, 'Designed for business needs.'),
+(4, 'Student Checking', 'Checking', 0.00, 3.00, 0.00, 'No minimum balance. Low monthly fee for students.'),
+(5, 'Basic Savings', 'Savings', 0.20, 0.00, 100.00, 'Offers competitive interest rates.'),
+(6, 'High Yield Savings', 'Savings', 1.00, 0.00, 5000.00, 'High interest rates for higher balances.'),
+(7, 'Student Savings', 'Savings', 0.20, 0.00, 0.00, 'No minimum balance. Low interest rate for students.'),
+(8, 'Senior Savings', 'Savings', 0.50, 0.00, 100.00, 'Designed for seniors.'),
+(9, 'Youth Savings', 'Savings', 0.30, 0.00, 10.00, 'Low minimum balance and interest rate suitable for young account holders.'),
+(10, 'Auto Loan', 'Loan', 4.00, 0.00, 0.00, 'Financing for new or used cars.'),
+(11, 'Mortgage', 'Loan', 3.50, 0.00, 0.00, 'Home mortgage loans.'),
+(12, 'Cash Back Rewards Card', 'Credit Card', 16.00, 5.00, 0.00, 'Offers cash back on purchases.'),
+(13, 'Platinum Credit Card', 'Credit Card', 18.00, 0.00, 0.00, 'Rewards and cash back.'),
+(14, 'Gold Credit Card', 'Credit Card', 20.00, 10.00, 0.00, 'Higher credit limits.'),
+(15, 'Student Credit Card', 'Credit Card', 22.00, 5.00, 0.00, 'Designed for students.')
+;
+
+
+##SQL
+
+--show data in sample table
+SELECT *
+FROM bank_products
+LIMIT 3;
+
+--selects the names of products in the table bank_products
+SELECT product_name
+FROM bank_products;
+
+--show the product names that have a Checking or Savings product type
+SELECT product_name
+FROM bank_products
+WHERE product_type='Checking'
+OR product_type='Savings';
+
+--show the product names that have a "Savings" product type and have an interest_rate of 0.75 or higher, and have no monthly fee
+SELECT product_name
+, product_type
+, interest_rate
+, monthly_fee
+FROM bank_products
+WHERE product_type='Savings'
+AND interest_rate>=0.75
+AND monthly_fee=0;
+
+--query to list some products using IN() clause
+SELECT product_name
+, description
+FROM bank_products
+WHERE product_name IN ('Premium Checking'
+, 'High Yield Savings'
+, 'Platinum Credit Card'
+, 'Gold Credit Card')
+;
+
+--query to list some products names containing "Business" using LIKE() clause
+SELECT product_name
+, description
+FROM bank_products
+WHERE product_name LIKE '%business%'
+;
+
+--query to list products containing "reward" in either name or description
+SELECT product_name
+, description
+FROM bank_products
+WHERE product_name LIKE '%reward%'
+OR description LIKE '%reward%'
+;
+
+
